@@ -4,7 +4,21 @@
 # Get a book returned
 # Print list of books, and the return date if lent out
 
+# Write functions that do the things you want, call those functions from you CLI functions
+# Look out for squiggly lines
+# Convert to JSON with a dictionary
+# Key is the book title value is another dictionary, keys=[title, author, lent_date]
+library = {
+    "Can't Hurt Me": {
+        "title": "Can't Hurt Me",
+        "author": "David Goggins",
+        "return_date": "2020-05-12",  # or None. Check out date.strptime and strftime
+    }
+}
+
+
 import click
+
 
 @click.group()
 def cli():
@@ -14,17 +28,23 @@ def cli():
 @click.option("--name", prompt="Book Name", help="Name of the book to add")
 def add_book(name):
     """Add a book to your library. Answer the prompt with the name of the book"""
-    bookname = f"{name}\n"
+    book_name = f"{name}\n"  # Convert two word variables to snake case
+    # Leave the book_name without the \n and add it as needed
+    # Use a context to open and close files
+    with open("personal_library.txt", "r") as file:
+        pass  # code goes in here
+
     file = open("personal_library.txt", "r")
-    for _ in file.readlines():
-        if bookname in _:
-            click.echo("%s is already in the Library" %name)
+    for _ in file.readlines():  # give this variable a name
+        # line = 'Apple\n'
+        # name = 'Orange and Apple\n'
+        if book_name in _:
+            click.echo("%s is already in the Library" %name)  # Convert to f-strings
             file.close()
             return
-            break
     file.close()
     file = open("personal_library.txt", "a")
-    file.write(bookname)
+    file.write(book_name)
     file.close()
     click.echo("%s added to the library" %name)
 
@@ -49,7 +69,7 @@ def delete_book(name):
 
 @click.command()
 @click.option("--name", prompt="Book Name, enter to cancel", default="", help="Name of the book to lend")
-def lend_Book(name):
+def lend_book(name):
     """Lend a book from your library. Answer the prompt with the name of the book and date of return"""
     bookname = f"{name}\n"
     file = open("personal_library.txt", "r")
@@ -102,7 +122,7 @@ def print_booklist(file):
 
 cli.add_command(add_book)
 cli.add_command(delete_book)
-cli.add_command(lend_Book)
+cli.add_command(lend_book)
 cli.add_command(return_book)
 cli.add_command(print_booklist)
 
