@@ -152,5 +152,5 @@ if __name__ == '__main__':
     cli()
 
 
-# Create a function to avoid certain names to be written such as an empty space or a dot
-# Create function that really checks without case sensitivity, currently 3G != 3g when it should be the same
+# TODO: Create a function to avoid certain names to be written such as an empty space or a dot
+# TODO: Create function that really checks without case sensitivity, currently 3G != 3g when it should be the same
